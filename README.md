@@ -11,6 +11,7 @@ Virginia Tech Capstone Project on how to decrease meeting bloating and inefficie
    headers: {
               'Content-Type': 'application/json',
               'Authorization': 'Bearer <OpenAI_API_Key>'
+      }
    ```
 4) Navigate to chrome://extensions
 5) Expand the Developer dropdown menu and click “Load Unpacked Extension”
