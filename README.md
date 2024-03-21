@@ -6,9 +6,15 @@ Virginia Tech Capstone Project on how to decrease meeting bloating and inefficie
 # How to run:
 1) clone the repo
 2) In manifest.json replace the "client_id" in "oauth2" with your own.
-3) Navigate to chrome://extensions
-4) Expand the Developer dropdown menu and click “Load Unpacked Extension”
-5) Navigate to the local folder containing the extension’s code and click Ok
+3) In popup.js add your key to the Authorization.
+   ```
+   headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer <OpenAI_API_Key>'
+   ```
+4) Navigate to chrome://extensions
+5) Expand the Developer dropdown menu and click “Load Unpacked Extension”
+6) Navigate to the local folder containing the extension’s code and click Ok
 
 Assuming there are no errors, the extension should load into your browser
 
