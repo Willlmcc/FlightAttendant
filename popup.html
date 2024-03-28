@@ -1,18 +1,78 @@
-<!DOCTYPE html>
 <html>
-<head>
-  <style>
-    body {
-      width: 300px;
-      height: 200px;
-      padding: 10px;
-    }
-  </style>
-</head>
-<body>
-  <h1></h1>
-  <button id="refresh">Read Mail</button>
-  <div id="output"></div>
-  <script src="js/popup.js"></script>
-</body>
+    <head>
+        <title>Chat Box UI Design</title>
+        <link rel="stylesheet" href="css/Chatroom.css" />
+        <script src="js/jquery-3.7.1.min.js"></script>
+        <script src="js/Chatroom.js"></script>
+        <script src="js/popup.js"></script>
+       
+      </head>
+
+      <body>
+        
+        <!--TODO: it'd be cool if we can resize the chat window-->
+        <!--TODO: The whole conversation will dissappear if they
+                 click out of the extension, maybe leverage local
+                  storage to save the conversation had?          -->
+        
+        <!--The main body of the chat box-->
+        <main class = "chat-box">
+
+            <!--The header above the chat window-->
+            <section class = "chat-header">
+                    <!--<img src = "DefaultUser.png" class = "header-image"/>-->
+                    <img src = "images/Aero-Circle.png" class = "header-image"/>
+                    <p>Chat With Aero</p>
+            </section>
+            
+            <!--Where all of the chats will appear-->
+            <section class = "chat-window" id = "window">
+
+                <!--User message example-->
+                <div class = "outgoing-chat">
+
+                    <img src="images/DefaultUser.png" />
+                    
+                    <p class = "user-message">
+                        This is a test of stuff That will appear on the screen
+                    </p>
+
+                    
+                </div>
+
+                <!--Aero response message-->
+                <div class = "incoming-chat">
+                    <!--Put image here-->
+                    
+                    <img src="images/Aero-Circle.png" />
+                    <p class = "aero-message">
+                        This is a test of stuff
+                    </p>
+                </div>
+
+
+            </section>
+            
+            <!--The footer under the window, we can put buttons here-->
+            <section class = "chat-footer">
+
+                <!--The button you all had-->
+                <button class = "refresh" id="refresh">Read Mail</button>
+
+
+                <form class = "user-input">
+                <textarea type="textarea" id="message" placeholder="Send a message..." class = "message-input"></textarea>
+                <input type="submit" style: hidden/>
+                </form>
+
+            </section>
+
+        </main>
+
+
+      </body>
+
+
+
+
 </html>
