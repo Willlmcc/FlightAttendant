@@ -88,8 +88,6 @@ body {
 .incoming-chat {
     margin-top: 2%;
     margin-left: 5%;
-    min-height: 5%;
-    max-height: 30%;
     width: 100%;
     display: flex;
     justify-content: left;
