@@ -1,8 +1,9 @@
 
-document.getElementById('refresh').addEventListener('click', function() {
-    chrome.runtime.sendMessage({action: 'fetchInbox'}, function(response) {
-  
-    });
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('refresh').addEventListener('click', function() {
+  chrome.runtime.sendMessage({action: 'fetchInbox'}, function(response) {
+});
+});
     
 
     chrome.runtime.onMessage.addListener(
