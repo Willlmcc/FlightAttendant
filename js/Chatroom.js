@@ -7,21 +7,26 @@ $(document).ready(function () {
   //Adds the message to the UI, but does nothing else atm
   $('.user-input').on('keypress', function (e) {
 
-    if (e.which == 13 && !e.shiftKey) {
-      if ($('.message-input').val() == "") {
+    if (e.which == 13 && !e.shiftKey && canMessage) {
+      if ($('.message-input').val() ==) {
         return false;
       }
       event.preventDefault();
       var message = $('.message-input').val();
       addUserMessage(message);
 
-      
+
       contextualizeMessage(message);
 
       //Send the message content
       //Which will call the asyc chatgpt 
       sendMessage()
 
+    }
+    else
+    {
+      event.preventDefault();
+      return false;
     }
   });
 
@@ -30,8 +35,8 @@ $(document).ready(function () {
 const API_KEY = '';
 const API_ENDPOINT = 'https://api.openai.com/v1/chat/completions';
 
-//Need to change this to the email thing
-const SYSTEM_PROMPT = "You are a helpful assistant"
+//Change this to a correct prompt
+const SYSTEM_PROMPT = "You're name is Aero, you are an assistant designed to determine if a meeting should be scheduled or stay as an email. You will help the user in maximizing the efficiency of their meetings."
 
 //May need a variable that controls
 //When a user can send a message
@@ -51,8 +56,10 @@ let conversation = []
 //Cause the conversation is already happening
 let tokenSize = 0;
 
-//Easiest way to se this ^, divide text by 4 roughly idk if spaces count
+//so this can be imported elsewhere
+var canMessage = true;
 
+//Easiest way to se this ^, divide text by 4 roughly idk if spaces count
 //Add the users message to the UI
 function addUserMessage(message) {
   var chatroom = document.getElementById('window');
@@ -60,7 +67,6 @@ function addUserMessage(message) {
   var div = document.createElement('div');
   var p = document.createElement('p');
   var image = document.createElement('img');
-
 
   div.className = 'outgoing-chat';
   p.className = 'user-message';
@@ -73,7 +79,6 @@ function addUserMessage(message) {
   document.getElementById("message").value = '';
   var messageBody = document.querySelector('.chat-window');
 
-
   messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
 }
 
@@ -81,6 +86,9 @@ function addUserMessage(message) {
 //TODO: could make this nicer by having the reponse come as if it's
 //Being typed in, rather than all at
 function addAeroMessage(message) {
+
+  contextualizeMessage(message)
+
   var chatroom = document.getElementById('window');
 
   var div = document.createElement('div');
@@ -93,20 +101,23 @@ function addAeroMessage(message) {
   image.src = "images/Aero-Circle.png";
 
   //Slowly types the message
+
+  
   for (let i = 0; i < message.length; i++) {
     setTimeout(() => {
       p.textContent += message[i];
     }, i * chatSpeed);
   }
 
+  setTimeout(() => {
+    canMessage = true;
+  }, message.length * chatSpeed);
+  
 
   div.appendChild(image);
   div.appendChild(p);
   chatroom.appendChild(div);
   var messageBody = document.querySelector('.chat-window');
-
-
-
 
   //Ensures that the most recent message is visible
   messageBody.scrollTop = messageBody.scrollHeight - messageBody.clientHeight;
@@ -126,19 +137,25 @@ function copyAeroMessage() {
 //Being had with Chat GPT
 function contextualizeMessage(message) {
   conversation.push(message);
-  console.log(conversation);
+  //console.log(conversation);
 }
 
 
 function sendMessage() {
-  
+
+  canMessage = false;
+
   ChatwithGPT()
     .then(response => {
-      contextualizeMessage(response)
       addAeroMessage(response)
     })
-    .catch(error => alert("An error with ChatGPT has occured!" + error))
-  
+    .catch(error => {
+      alert("An error with ChatGPT has occured!" + error)
+      canMessage = true;
+    })
+
+
+
 }
 
 

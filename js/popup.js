@@ -1,9 +1,9 @@
+
 document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('refresh').addEventListener('click', function() {
         chrome.runtime.sendMessage({action: 'fetchInbox'}, function(response) {
       });
   });
-    
 
     chrome.runtime.onMessage.addListener(
       async function(request, sender, sendResponse) {
@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
           // Log the message body to the console
           console.log(request.data);
 
-          const systemPrompt = "Assume you are a asisstant that analyze mail and give a repsone about mail whether meeting is required or not";
+          const systemPrompt = "Assume you are an assistant that will analyze mail and give a response about whether a meeting is required or not";
           const userPrompt = request.data;
 
           fetch('http://127.0.0.1:5000/api/analyze', {
@@ -22,7 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
                   body: JSON.stringify({ question: request.data }),
               })
               .then(response => response.json())
-              .then(data => console.log(data.message))
+              .then(data => {
+                console.log(data.message)
+                //Add the message to the chatbox
+                addAeroMessage(data.message)
+            })
+                
               .catch((error) => {
                   console.error('Error:', error);
               });
