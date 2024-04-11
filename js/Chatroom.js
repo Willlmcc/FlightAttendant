@@ -8,7 +8,7 @@ $(document).ready(function () {
   $('.user-input').on('keypress', function (e) {
 
     if (e.which == 13 && !e.shiftKey && canMessage) {
-      if ($('.message-input').val() ==) {
+      if ($('.message-input').val() == "") {
         return false;
       }
       event.preventDefault();
@@ -23,14 +23,11 @@ $(document).ready(function () {
       sendMessage()
 
     }
-    else
-    {
-      event.preventDefault();
-      return false;
-    }
   });
 
 });
+
+
 //PUT API KEY HERE FOR CHATTING
 const API_KEY = '';
 const API_ENDPOINT = 'https://api.openai.com/v1/chat/completions';
@@ -137,7 +134,7 @@ function copyAeroMessage() {
 //Being had with Chat GPT
 function contextualizeMessage(message) {
   conversation.push(message);
-  //console.log(conversation);
+  console.log(conversation);
 }
 
 
